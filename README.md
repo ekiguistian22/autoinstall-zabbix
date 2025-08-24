@@ -45,14 +45,14 @@ This script installs **Zabbix 7.4** automatically on Ubuntu 22.04, with **MySQL*
 
 ### 1️⃣ Download script
 ```bash
-wget https://github.com/ekiguistian22/autoinstall-zabbix
+git clone https://github.com/ekiguistian22/autoinstall-zabbix
 cd autoinstall-zabbix
 chmod +x install.sh
 ```
 
 ### 2️⃣ Jalankan script sebagai root / Run script as root
 ```bash
-sudo ./install.sh
+bash install.sh
 ```
 
 ### 3️⃣ Ikuti prompt / Follow the prompts
