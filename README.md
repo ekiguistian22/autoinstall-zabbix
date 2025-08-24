@@ -116,5 +116,43 @@ All services enabled to start on boot.
 
 ---
 
+## ❤️ Support Project Ini
+Kalau script ini bermanfaat, kamu bisa traktir kopi ☕ lewat PayPal:  
+
+👉 [paypal.me/ekiguistian22](https://www.paypal.me/ekiguistian22)
+
+Atau scan QR berikut:  
+
+![PayPal QR](paypal_qr_ekiguistian22.png)
+
+---
+
+✍️ Created with ❤️ by **Leo Ganteng**
+
+---
+
+<p align="center">
+  ❤️ Created by <b>Leo Ganteng</b> | 
+  ☕ Support me via <a href="https://www.paypal.me/ekiguistian22">PayPal</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/ekiguistian">
+    <img src="https://img.shields.io/github/followers/ekiguistian?label=Follow%20me&style=social" alt="GitHub Follow" />
+  </a>
+  <a href="https://github.com/ekiguistian?tab=repositories">
+    <img src="https://img.shields.io/badge/More%20Projects-GitHub-orange?style=flat-square" />
+  </a>
+</p>
+
+---
+
+## 👨‍💻 Author
+- **Created by**: Leo Ganteng  
+- 📧 Email: ekiguistian@gmail.com  
+- 🌐 GitHub: [github.com/ekiguistian22](https://github.com/ekiguistian22)  
+
+✨ Terima kasih sudah menggunakan project ini!
+
 ✍️ **Author / Penulis:** Eki Guistian  
 📅 Versi / Version: 1.0  
