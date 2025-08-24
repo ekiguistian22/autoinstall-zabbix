@@ -1,6 +1,7 @@
 #!/bin/bash
 # ============================================================
 # Zabbix 7.4 Auto Installer (Ubuntu 22.04 + MySQL + Nginx)
+# Mode: Interactive
 # Author : Eki Guistian
 # ============================================================
 
@@ -10,9 +11,22 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-echo "=== Zabbix 7.4 Installer ==="
-read -p "Masukkan password untuk user MySQL zabbix: " ZABBIX_DB_PASS
+echo "=== 🚀 Zabbix 7.4 Installer (Ubuntu 22.04) ==="
+
+# --- Input User ---
+read -p "Masukkan password MySQL untuk user 'zabbix': " ZABBIX_DB_PASS
 read -p "Masukkan domain/server_name untuk Nginx (contoh: monitoring.example.com): " ZABBIX_DOMAIN
+read -p "Masukkan port untuk Nginx (default 80): " ZABBIX_PORT
+ZABBIX_PORT=${ZABBIX_PORT:-80}
+
+echo ""
+echo "📌 Konfigurasi yang dipilih:"
+echo "   - MySQL password : $ZABBIX_DB_PASS"
+echo "   - Nginx server_name : $ZABBIX_DOMAIN"
+echo "   - Nginx listen port : $ZABBIX_PORT"
+echo ""
+
+sleep 2
 
 # --- Install Repo ---
 echo "📦 Menambahkan repository Zabbix..."
@@ -21,13 +35,15 @@ dpkg -i zabbix-release_latest_7.4+ubuntu22.04_all.deb
 apt update -y
 
 # --- Install Packages ---
-echo "📦 Menginstall paket Zabbix..."
+echo "📦 Menginstall paket Zabbix + MySQL..."
 apt install -y mysql-server zabbix-server-mysql zabbix-frontend-php \
   zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
 
 # --- Setup Database ---
 echo "🗄️ Membuat database Zabbix..."
 mysql -uroot <<MYSQL_SCRIPT
+DROP DATABASE IF EXISTS zabbix;
+DROP USER IF EXISTS 'zabbix'@'localhost';
 CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 CREATE USER 'zabbix'@'localhost' IDENTIFIED BY '${ZABBIX_DB_PASS}';
 GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'localhost';
@@ -54,7 +70,7 @@ fi
 
 # --- Configure Nginx for Zabbix ---
 echo "⚙️ Konfigurasi Nginx..."
-sed -i "s|# listen 8080;|listen 80;|" /etc/zabbix/nginx.conf
+sed -i "s|# listen 8080;|listen ${ZABBIX_PORT};|" /etc/zabbix/nginx.conf
 sed -i "s|# server_name example.com;|server_name ${ZABBIX_DOMAIN};|" /etc/zabbix/nginx.conf
 
 # --- Restart Services ---
@@ -62,6 +78,8 @@ echo "🚀 Restarting services..."
 systemctl restart zabbix-server zabbix-agent nginx php8.1-fpm
 systemctl enable zabbix-server zabbix-agent nginx php8.1-fpm
 
+echo ""
 echo "✅ Instalasi Zabbix selesai!"
-echo "Akses Zabbix Web UI di: http://${ZABBIX_DOMAIN}/"
-echo "Login default: Admin / zabbix"
+echo "🔗 Akses Zabbix Web UI di: http://${ZABBIX_DOMAIN}:${ZABBIX_PORT}/"
+echo "🔑 Login default: Admin / zabbix"
+echo ""
